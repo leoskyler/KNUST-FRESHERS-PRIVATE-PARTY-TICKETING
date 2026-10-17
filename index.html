@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KNUST FRESHERS PRIVATE PARTY - Tickets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Particle Animation Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="wrapper">
+    <!-- Main Header -->
+    <header class="hero-header">
+      <div class="badge">EXCLUSIVE ACCESS</div>
+      <h1 class="glitch-title">KNUST FRESHERS<br><span class="highlight">PRIVATE PARTY</span></h1>
+      <p class="subtitle">The ultimate freshman experience. High vibes, premium energy, unmissable night.</p>
+    </header>
+
+    <!-- Hosts Banner -->
+    <section class="hosts-container">
+      <span class="hosts-label">HOSTED BY</span>
+      <div class="hosts-list">
+        <span class="host-tag">ESCOBAR</span>
+        <span class="dot">•</span>
+        <span class="host-tag">FROST</span>
+        <span class="dot">•</span>
+        <span class="host-tag">VORTEX</span>
+        <span class="dot">•</span>
+        <span class="host-tag">PHANTOM</span>
+        <span class="dot">•</span>
+        <span class="host-tag">ZARK</span>
+      </div>
+    </section>
+
+    <!-- Ticket Tier Cards -->
+    <section class="tickets-section">
+      <h2 class="section-title">SELECT YOUR TICKET</h2>
+      <div class="cards-grid">
+        
+        <!-- Single Card -->
+        <div class="ticket-card" onclick="selectTier('single', 120, 'Single Pass')">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="tier-name">SINGLE PASS</span>
+            <span class="badge-tag">1 Person</span>
+          </div>
+          <div class="price-box">
+            <span class="currency">GHS</span>
+            <span class="amount">120</span>
+          </div>
+          <ul class="features">
+            <li>✓ 1x General Admission</li>
+            <li>✓ Access to main party zone</li>
+            <li>✓ Express entrance line</li>
+          </ul>
+          <button class="select-btn">Select Pass</button>
+        </div>
+
+        <!-- Double Card -->
+        <div class="ticket-card featured" onclick="selectTier('double', 210, 'Double Pass')">
+          <div class="card-glow"></div>
+          <div class="popular-tag">MOST POPULAR</div>
+          <div class="card-header">
+            <span class="tier-name">DOUBLE PASS</span>
+            <span class="badge-tag">2 People</span>
+          </div>
+          <div class="price-box">
+            <span class="currency">GHS</span>
+            <span class="amount">210</span>
+          </div>
+          <div class="savings">Save GHS 30</div>
+          <ul class="features">
+            <li>✓ 2x VIP Passes</li>
+            <li>✓ Fast-track access</li>
+            <li>✓ Complimentary drink voucher</li>
+          </ul>
+          <button class="select-btn active">Select Pass</button>
+        </div>
+
+        <!-- Group Card -->
+        <div class="ticket-card" onclick="selectTier('group', 320, 'Group of 4 Pass')">
+          <div class="card-glow"></div>
+          <div class="card-header">
+            <span class="tier-name">SQUAD PACK</span>
+            <span class="badge-tag">4 People</span>
+          </div>
+          <div class="price-box">
+            <span class="currency">GHS</span>
+            <span class="amount">320</span>
+          </div>
+          <div class="savings">Save GHS 160</div>
+          <ul class="features">
+            <li>✓ 4x VIP Squad Passes</li>
+            <li>✓ Reserved area access</li>
+            <li>✓ Special party pack included</li>
+          </ul>
+          <button class="select-btn">Select Pass</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="checkout-section" class="checkout-section hidden">
+      <div class="checkout-card">
+        <h2 class="section-title left">COMPLETE DEPOSIT</h2>
+        
+        <div class="summary-box">
+          <div>Selected: <strong id="summary-tier">Single Pass</strong></div>
+          <div>Total Amount: <strong id="summary-amount">120 Ghana Cedis</strong></div>
+        </div>
+
+        <form id="payment-form" onsubmit="handlePayment(event)">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="user-name" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label>Select Mobile Money Provider</label>
+            <div class="momo-grid">
+              <label class="momo-option">
+                <input type="radio" name="provider" value="MTN MoMo" checked />
+                <div class="momo-box mtn">
+                  <span class="provider-logo">MTN</span>
+                  <span>MoMo</span>
+                </div>
+              </label>
+              <label class="momo-option">
+                <input type="radio" name="provider" value="Telecel Cash" />
+                <div class="momo-box telecel">
+                  <span class="provider-logo">Telecel</span>
+                  <span>Cash</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Mobile Money Number</label>
+            <input type="tel" id="user-phone" placeholder="024 XXX XXXX" pattern="[0-9]{10}" required />
+          </div>
+
+          <button type="submit" class="pay-btn" id="pay-button">
+            <span>DEPOSIT GHS <span id="btn-amount">120</span> NOW</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Loading Modal Screen -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+      <div class="modal-card">
+        <div class="pulse-ring"></div>
+        <div class="phone-mockup">
+          <div class="ussd-spinner"></div>
+        </div>
+        
+        <h3 class="modal-title">Prompt Sent to Your Phone</h3>
+        <p class="modal-desc">
+          Please wait while your service provider (<strong id="selected-provider-text">MTN MoMo</strong>) sends you a prompt to enter your secret PIN and authorize the deposit.
+        </p>
+
+        <div class="status-box">
+          <span class="status-dot"></span>
+          <span>Waiting for Mobile Money Confirmation...</span>
+        </div>
+        
+        <div class="instruction">
+          <p>⚠️ Do not close or refresh this browser page until prompt is complete.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
